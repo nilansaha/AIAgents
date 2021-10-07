@@ -10,7 +10,7 @@ class TicTacToe:
         self.state = [-1] * self.total_spots
         self.turn = 0
         self.done = False
-        self.winner = False
+        self.winner = -1
         self.move_history = []
         self.state_history = [[-1] * self.total_spots]
 
@@ -58,11 +58,24 @@ class TicTacToe:
         return False
 
     def move(self, pos):
+        if self.state[pos] != -1:
+            raise Exception("Illegal move. Spot already occupied")
+
         self.state[pos] = self.turn
         self.move_history.append(pos)
         self.state_history.append(deepcopy(self.state))
+
+        if self.is_win():
+            self.done = True
+            self.winner = self.turn
+        else:
+            if len(self.available_moves()) > 0:
+                self.done = False
+            else:
+                self.done = True
+
         self.turn = 1 - self.turn
-        # @TODO: Add logic to check for wins and game completion
+        return self.done, self.winner
 
     def available_moves(self):
         if not self.done:
@@ -90,3 +103,14 @@ env.move(2)
 env.move(9)
 env.render()
 print("Win", env.is_win())
+
+done = False
+winner = None
+env = TicTacToe(5, 4)
+while not done:
+    print()
+    pos = int(input())
+    done, winner = env.move(pos)
+    env.render()
+
+print("Winner", winner)
