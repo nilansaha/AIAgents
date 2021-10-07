@@ -8,7 +8,12 @@ Basically a continuation of a past [project](https://github.com/nilansaha/TicTac
 
 The idea is to start from simple things and my very very basic knowledge of agents that are intuitive and novel to my brain (not the outside world) and keep improving from there. I have found coming to solutions on my own (sometimes possibly with small hints i.e. reading a high level blog) that already exists is always fun for me and pushes me to think harder. 
 
+#### What we have
+
+- A N X N TIcTacToe board environment that an agent can interact with
+- Sample player class that can be inherit to build an agent(player)
+- Game class that makes it easier to play games among two players
 
 #### Current Goal
 
-- Implement a N X N TicTacToe board and environment with basic operations that an agent can interact with
+- Implement a simple smart player (yet to decide what kind)

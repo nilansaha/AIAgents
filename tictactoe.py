@@ -93,24 +93,25 @@ class TicTacToe:
         )
 
 
-env = TicTacToe(5, 4)
-env.move(6)
-env.move(0)
-env.move(7)
-env.move(1)
-env.move(8)
-env.move(2)
-env.move(9)
-env.render()
-print("Win", env.is_win())
-
-done = False
-winner = None
-env = TicTacToe(5, 4)
-while not done:
-    print()
-    pos = int(input())
-    done, winner = env.move(pos)
+if __name__ == "__main__":
+    env = TicTacToe(5, 4)
+    env.move(6)
+    env.move(0)
+    env.move(7)
+    env.move(1)
+    env.move(8)
+    env.move(2)
+    env.move(9)
     env.render()
+    print("Win", env.is_win())
 
-print("Winner", winner)
+    done = False
+    winner = None
+    env = TicTacToe(5, 4)
+    while not done:
+        print()
+        pos = int(input())
+        done, winner = env.move(pos)
+        env.render()
+
+    print("Winner", winner)
