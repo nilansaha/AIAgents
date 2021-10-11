@@ -14,8 +14,10 @@ The idea is to start from simple things and my very very basic knowledge of agen
 - Sample player class that can be inherit to build an agent(player)
 - Game class that makes it easier to play games among two players
 - Implement a tree based smart player (does extremely well against humans or random players)
+- A neural net that can predict when a game has been won for a 3 X 3 board
 
 
 #### To Do
 
-- Implement a neural network to predict when a game has been won (a network that can predict that based on the semantics of the board should be close to predicting the value of a game based on the board)
+- Try out the neural net with much bigger boards and validate and improve based on how well it does on those by keeping the size of game dataset same
+- Implement a ValueNet to predict the the value of a board for any given instance (can be a new model with same architecture or addition of the same model with another loss and frozen layers and this could actually help because it could help in learning the semantics of the board)

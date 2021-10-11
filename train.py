@@ -6,11 +6,6 @@ import pytorch_lightning as pl
 import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader
 
-from tictactoe import TicTacToe
-from players import RandomPlayer
-from game import Game
-import random
-
 
 def encode_board(board):
     encoded_board_size = len(board) * 2
@@ -43,11 +38,13 @@ class PLNet(pl.LightningModule):
     def __init__(self, board_size=3):
         super().__init__()
         self.fc1 = nn.Linear((board_size ** 2) * 2, 9)
-        self.fc2 = nn.Linear(9, 2)
+        self.fc2 = nn.Linear(9, 9)
+        self.fc3 = nn.Linear(9, 2)
 
     def forward(self, x):
         out = F.relu(self.fc1(x))
-        out = self.fc2(out)
+        out = F.relu(self.fc2(out))
+        out = self.fc3(out)
         return out
 
     def training_step(self, batch, batch_idx):
