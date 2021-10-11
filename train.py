@@ -27,7 +27,7 @@ def encode_board(board):
 
 class SampleDataset(Dataset):
     def __init__(self):
-        self.games = np.loadtxt("games_data.out", delimiter=",", dtype=int)
+        self.games = np.loadtxt("training_games.out", delimiter=",", dtype=int)
 
     def __len__(self):
         return len(self.games)
@@ -68,36 +68,20 @@ class PLNet(pl.LightningModule):
 
 def evaluate(model):
     hits = []
+    games = np.loadtxt("testing_games.out", delimiter=",", dtype=int)
 
     model.eval()
     with torch.no_grad():
-        test_case_count = 0
-        while True:
-            env = TicTacToe(3, 3)
-            player1 = RandomPlayer(env)
-            player2 = RandomPlayer(env)
+        for game in games:
+            board = game[:-1]
+            outcome = game[-1]
 
-            game = Game(env, player1, player2, verbose=False)
-            game.play()
+            out = model(torch.Tensor(encode_board(board)))
+            prediction = torch.argmax(out).item()
+            hits.append(int(prediction == outcome))
 
-            if env.done and env.winner == 0:
-                non_winning_state = random.choice(env.state_history[:-1])
-                winning_state = env.state_history[-1]
-
-                encoded_non_winning_state = encode_board(non_winning_state)
-                out = model(torch.Tensor(encoded_non_winning_state))
-                hits.append(int(torch.argmax(out).item() == 0))
-
-                encoded_winning_state = encode_board(winning_state)
-                out = model(torch.Tensor(encoded_winning_state))
-                hits.append(int(torch.argmax(out).item() == 1))
-
-                test_case_count += 2
-
-            if test_case_count == 200:
-                break
-
-    print("Accuracy {}%".format((sum(hits) / len(hits)) * 100))
+    acc = (sum(hits) / len(hits)) * 100
+    print("Accuracy {}%".format(acc))
 
 
 if __name__ == "__main__":

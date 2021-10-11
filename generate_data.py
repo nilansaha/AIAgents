@@ -25,17 +25,11 @@ for _ in range(10000):
         games.append(non_winning_info)
 
 games = np.array(games)
-print(games)
+training_games = games[:-200]
+testing_games = games[-200:]
 
-np.savetxt("games_data.out", games, delimiter=",", fmt="%i")
+np.savetxt("training_games.out", training_games, delimiter=",", fmt="%i")
+np.savetxt("testing_games.out", testing_games, delimiter=",", fmt="%i")
 
-loaded_games = np.loadtxt("games_data.out", delimiter=",", dtype=int)
-print(loaded_games)
-print(len(loaded_games))
-
-board_state = loaded_games[1, 0:-1]
-outcome = loaded_games[1, -1]
-
-print()
-print(board_state)
-print(outcome)
+print("Training Games size", len(training_games))
+print("Testing Games size", len(testing_games))
