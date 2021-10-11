@@ -10,10 +10,12 @@ The idea is to start from simple things and my very very basic knowledge of agen
 
 #### What we have
 
-- A N X N TIcTacToe board environment that an agent can interact with
+- A N X N TicTacToe board environment that an agent can interact with
 - Sample player class that can be inherit to build an agent(player)
 - Game class that makes it easier to play games among two players
+- Implement a tree based smart player (does extremely well against humans or random players)
 
-#### Current Goal
 
-- Implement a simple smart player (yet to decide what kind)
+#### To Do
+
+- Implement a neural network to predict when a game has been won (a network that can predict that based on the semantics of the board should be close to predicting the value of a game based on the board)
